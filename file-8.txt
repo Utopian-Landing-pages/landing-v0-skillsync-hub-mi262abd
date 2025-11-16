@@ -1,0 +1,171 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+
+const testimonials = [
+  {
+    name: 'Dr. Anya Sharma',
+    role: 'Lead AI Researcher at Innovate Corp',
+    quote: 'SkillSync Hub connected us with an AI ethicist whose expertise was impossible to find elsewhere. The project delivery was flawless, and the AI matching saved us weeks of recruitment time.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,1',
+    rating: 5
+  },
+  {
+    name: 'Mark Chen',
+    role: 'Freelance AR/VR Developer',
+    quote: 'I landed a dream project designing a complex AR interface within days of joining SkillSync Hub. The platform truly understands niche skills and values specialized talent.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,2',
+    rating: 5
+  },
+  {
+    name: 'Sarah Lee',
+    role: 'CTO at Quantum Leap Startups',
+    quote: 'Finding a specialized quantum computing expert on a short timeline was a huge challenge until SkillSync Hub. The AI-driven vetting meant we onboarded top-tier talent without hassle.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,3',
+    rating: 5
+  },
+  {
+    name: 'David Kim',
+    role: 'Freelance 3D Environment Artist',
+    quote: 'SkillSync Hub showcases my unique 3D art portfolio to the right clients. I\'ve secured multiple high-paying, creatively fulfilling projects that align perfectly with my expertise.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,4',
+    rating: 5
+  },
+  {
+    name: 'Emily White',
+    role: 'Project Manager at BioGen Solutions',
+    quote: 'We needed a biotech researcher for a specific gene-editing project. SkillSync Hub\'s detailed matching provided us with an ideal candidate, accelerating our R&D significantly.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,5',
+    rating: 5
+  },
+  {
+    name: 'Javier Rodriguez',
+    role: 'Founder of PixelCraft Games',
+    quote: 'The platform\'s efficiency in finding niche talent is unparalleled. SkillSync Hub allowed us to scale our game development team with specialized developers for critical phases.',
+    image: 'https://source.unsplash.com/300x300/?portrait,professional,6',
+    rating: 5
+  }
+]
+
+export function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+  }
+
+  return (
+    <section id="testimonials" className="py-20 sm:py-28 bg-card">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
+            Trusted by <span className="text-accent">Professionals</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
+            Hear from the specialized talent and forward-thinking companies using SkillSync Hub
+          </p>
+        </motion.div>
+
+        <div className="relative max-w-4xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+              className="bg-background border border-border rounded-2xl p-8 sm:p-12"
+            >
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-shrink-0">
+                  <div className="relative w-24 h-24 rounded-full overflow-hidden">
+                    <Image
+                      src={testimonials[currentIndex].image || "/placeholder.svg"}
+                      alt={testimonials[currentIndex].name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex justify-center md:justify-start gap-1 mb-4">
+                    {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+                    ))}
+                  </div>
+
+                  <p className="text-lg text-foreground mb-6 italic">
+                    "{testimonials[currentIndex].quote}"
+                  </p>
+
+                  <div>
+                    <p className="font-bold text-foreground">{testimonials[currentIndex].name}</p>
+                    <p className="text-muted-foreground">{testimonials[currentIndex].role}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={goToPrevious}
+              className="rounded-full"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+
+            <div className="flex gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    index === currentIndex
+                      ? 'bg-primary w-8'
+                      : 'bg-muted-foreground/30'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={goToNext}
+              className="rounded-full"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

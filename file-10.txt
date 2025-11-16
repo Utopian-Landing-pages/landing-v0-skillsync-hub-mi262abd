@@ -1,0 +1,72 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+
+const faqs = [
+  {
+    question: 'How does SkillSync Hub ensure quality matches between freelancers and projects?',
+    answer: 'Our AI leverages advanced portfolio analysis and skill-based algorithms to precisely match highly specialized freelancers with projects requiring their niche expertise, ensuring optimal fit and quality.'
+  },
+  {
+    question: 'What are the fees involved for clients and freelancers?',
+    answer: 'Clients pay a commission of 10-15% on project value upon completion. Freelancers can access premium features for enhanced visibility and insights via an optional Pro subscription.'
+  },
+  {
+    question: 'How are payments handled for projects?',
+    answer: 'All payments are securely processed through SkillSync Hub. Funds are held in escrow and released to the freelancer upon successful project completion and client approval, ensuring fair compensation.'
+  },
+  {
+    question: 'What types of specialized roles and projects can I find on SkillSync Hub?',
+    answer: 'We focus on niche technical and creative fields, including AI/ML engineering, AR/VR development, specialized 3D artistry, biotech research, and other high-demand, short-term expert roles.'
+  }
+]
+
+export function FAQ() {
+  return (
+    <section id="faq" className="py-20 sm:py-28 bg-card">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
+            Frequently Asked <span className="text-primary">Questions</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
+            Everything you need to know about SkillSync Hub
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto"
+        >
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-border">
+                <AccordionTrigger className="text-left text-foreground hover:text-primary">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      </div>
+    </section>
+  )
+}

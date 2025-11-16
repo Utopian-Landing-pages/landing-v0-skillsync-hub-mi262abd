@@ -1,0 +1,97 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Sparkles, Target, SearchCheck, Rocket, FastForward } from 'lucide-react'
+import Image from 'next/image'
+
+const features = [
+  {
+    icon: Sparkles,
+    title: 'AI-Powered Skill Matching',
+    description: 'Connects talent with projects based on advanced AI analysis of niche skills.',
+    image: 'https://source.unsplash.com/400x300/?ai,matching'
+  },
+  {
+    icon: Target,
+    title: 'Niche Role Specialization',
+    description: 'Focuses on highly specific technical and creative short-term roles.',
+    image: 'https://source.unsplash.com/400x300/?niche,expertise'
+  },
+  {
+    icon: SearchCheck,
+    title: 'Advanced Portfolio Analysis',
+    description: 'Leverages sophisticated algorithms to vet freelancer portfolios and skill sets.',
+    image: 'https://source.unsplash.com/400x300/?portfolio,analysis'
+  },
+  {
+    icon: Rocket,
+    title: 'High-Impact Project Access',
+    description: 'Provides access to meaningful, short-term projects that drive real results.',
+    image: 'https://source.unsplash.com/400x300/?project,impact'
+  },
+  {
+    icon: FastForward,
+    title: 'Streamlined Client Sourcing',
+    description: 'Helps companies quickly find and onboard specialized talent without traditional hiring challenges.',
+    image: 'https://source.unsplash.com/400x300/?talent,sourcing'
+  }
+]
+
+export function Features() {
+  return (
+    <section id="features" className="py-20 sm:py-28 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">
+            Why Choose <span className="text-primary">SkillSync Hub</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance">
+            Cutting-edge AI technology meets specialized talent marketplace
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              className="group"
+            >
+              <div className="relative h-full bg-card border border-border rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={feature.image || "/placeholder.svg"}
+                    alt={feature.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

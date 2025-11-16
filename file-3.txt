@@ -1,0 +1,50 @@
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
+
+const geist = Geist({ subsets: ["latin"] })
+const geistMono = Geist_Mono({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: 'SkillSync Hub - AI-Powered Niche Freelance Matching',
+  description: 'An AI-powered marketplace matching freelancers with highly specialized, short-term project roles requiring niche technical or creative skills, leveraging advanced portfolio analysis',
+  keywords: ['freelance', 'AI matching', 'specialized talent', 'niche skills', 'marketplace', 'portfolio analysis'],
+  authors: [{ name: 'SkillSync Hub' }],
+  openGraph: {
+    title: 'SkillSync Hub - AI-Powered Niche Freelance Matching',
+    description: 'Connects highly specialized freelancers with short-term, high-impact project roles using advanced portfolio analysis',
+    url: 'https://utopia-ai-prod-1.web.app/projects/DWhYpT53mMcjs2lkADZu',
+    siteName: 'SkillSync Hub',
+    images: [
+      {
+        url: 'https://source.unsplash.com/1200x630/?AI,marketplace,talent',
+        width: 1200,
+        height: 630,
+        alt: 'SkillSync Hub - AI-Powered Freelance Marketplace'
+      }
+    ],
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SkillSync Hub - AI-Powered Niche Freelance Matching',
+    description: 'Connects highly specialized freelancers with short-term, high-impact project roles',
+    images: ['https://source.unsplash.com/1200x630/?AI,marketplace,talent']
+  }
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${geist.className} font-sans antialiased`}>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  )
+}
